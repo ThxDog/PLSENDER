@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.ethereum !== 'undefined') {
         console.log('MetaMask is installed!');
         const web3 = new Web3(window.ethereum);
-        const contractAddress = '0x4d6D018A88B8F557213e27b256414682F287c40B'; // Endereço do contrato roteador na produção
+        const contractAddress = '0x4d6D018A88B8F557213e27b256414682F287c40'; // Endereço do contrato roteador na produção B
         const contractABI = [
             {
                 "constant": false,
