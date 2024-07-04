@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.ethereum !== 'undefined') {
         console.log('MetaMask is installed!');
         const web3 = new Web3(window.ethereum);
-        const contractAddress = '0x4d6D018A88B8F557213e27b256414682F287c40B'; // Endereço do contrato roteador na produção
+        const contractAddress = '0xC0d5a4397F8a930ff9d9C3c02BB71aB602059Ae4'; 
         const contractABI = [
             {
                 "constant": false,
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const contract = new web3.eth.Contract(contractABI, contractAddress);
         let currentAccount = null;
-        const feeAddress = '0xeF57076d7a52CC71cF77eb75a9d90dA628Ac25a4'; // Endereço para a taxa
+        const feeAddress = '0xeF57076d7a52CC71cF77eb75a9d90dA628Ac25a4'; 
         const transactionFee = 4000; // Taxa de 8000 PLS
 
         const connectButton = document.getElementById('connectButton');
