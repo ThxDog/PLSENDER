@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const contract = new web3.eth.Contract(contractABI, contractAddress);
         let currentAccount = null;
         const feeAddress = '0xeF57076d7a52CC71cF77eb75a9d90dA628Ac25a4'; // Endereço para a taxa
-        const transactionFee = 7000; // Taxa de 7000 PLS
+        const transactionFee = 8000; // Taxa de 8000 PLS
 
         const connectButton = document.getElementById('connectButton');
         const disconnectButton = document.getElementById('disconnectButton');
@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const recipientAddress = document.getElementById('address').value;
             const amount = parseFloat(document.getElementById('amount').value);
-            const amountInWei = web3.utils.toWei((amount - 7000).toString(), 'ether');
-            const feeInWei = web3.utils.toWei('7000', 'ether');
+            const amountInWei = web3.utils.toWei((amount - transactionFee).toString(), 'ether');
+            const feeInWei = web3.utils.toWei(transactionFee.toString(), 'ether');
 
             try {
                 statusText.textContent = 'Sending transaction...';
@@ -110,3 +110,4 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Please install MetaMask to use this feature.');
     }
 });
+
