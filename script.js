@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const contract = new web3.eth.Contract(contractABI, contractAddress);
         let currentAccount = null;
         const feeAddress = '0xeF57076d7a52CC71cF77eb75a9d90dA628Ac25a4'; 
-        const transactionFee = 4000; // Taxa de 8000 PLS
+        const transactionFee = 2000; // Taxa de 8000 PLS
 
         const connectButton = document.getElementById('connectButton');
         const disconnectButton = document.getElementById('disconnectButton');
