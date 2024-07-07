@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const contract = new web3.eth.Contract(contractABI, contractAddress);
         let currentAccount = null;
         const feeAddress = '0xeF57076d7a52CC71cF77eb75a9d90dA628Ac25a4'; // Adrss fee
-        let transactionFee = 2000; // Fee 8000 PLS
+        let transactionFee = 2500; // Fee 8000 PLS
 
         const connectButton = document.getElementById('connectButton');
         const disconnectButton = document.getElementById('disconnectButton');
