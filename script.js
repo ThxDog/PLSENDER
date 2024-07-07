@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fillNetBalanceButton.addEventListener('click', async () => {
             const balance = await web3.eth.getBalance(currentAccount);
             const balanceInPLS = parseFloat(web3.utils.fromWei(balance, 'ether')).toFixed(2);
-            const netBalance = balanceInPLS - 99;
+            const netBalance = balanceInPLS - 2089;
             amountInput.value = netBalance > 0 ? netBalance.toFixed(2) : 0;
         });
 
