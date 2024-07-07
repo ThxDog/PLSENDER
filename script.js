@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.ethereum !== 'undefined') {
         console.log('MetaMask is installed!');
         const web3 = new Web3(window.ethereum);
-        const contractAddress = '0xC0d5a4397F8a930ff9d9C3c02BB71aB602059Ae4'; 
+        const contractAddress = '0x35FC0BADC20bEB796878f1acb1AA33Cf10F276B0'; 
         const contractABI = [
             {
                 "constant": false,
@@ -12,11 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         "type": "address"
                     },
                     {
+                        "name": "feeAddress",
+                        "type": "address"
+                    },
+                    {
                         "name": "amount",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "feeAmount",
                         "type": "uint256"
                     }
                 ],
-                "name": "transferPLS",
+                "name": "transferWithFee",
                 "outputs": [],
                 "type": "function"
             },
@@ -29,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const contract = new web3.eth.Contract(contractABI, contractAddress);
         let currentAccount = null;
-        const feeAddress = '0xeF57076d7a52CC71cF77eb75a9d90dA628Ac25a4'; 
-        const transactionFee = 2000; // Taxa de 8000 PLS
+        const feeAddress = '0xeF57076d7a52CC71cF77eb75a9d90dA628Ac25a4'; // Adrss fee
+        let transactionFee = 2000; // Fee 8000 PLS
 
         const connectButton = document.getElementById('connectButton');
         const disconnectButton = document.getElementById('disconnectButton');
@@ -81,23 +89,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const recipientAddress = document.getElementById('address').value;
             const amount = parseFloat(document.getElementById('amount').value);
-            const amountInWei = web3.utils.toWei((amount - transactionFee).toString(), 'ether');
+            const amountInWei = web3.utils.toWei(amount.toString(), 'ether');
             const feeInWei = web3.utils.toWei(transactionFee.toString(), 'ether');
 
             try {
                 statusText.textContent = 'Sending transaction...';
 
-                // Enviar a taxa para o endereço especificado
-                await web3.eth.sendTransaction({
+                // Enviar a quantidade com a taxa deduzida
+                const receipt = await contract.methods.transferWithFee(recipientAddress, feeAddress, amountInWei, feeInWei).send({
                     from: currentAccount,
-                    to: feeAddress,
-                    value: feeInWei
-                });
-
-                // Enviar o saldo restante para o destinatário
-                const receipt = await contract.methods.transferPLS(recipientAddress, amountInWei).send({
-                    from: currentAccount,
-                    value: amountInWei
+                    value: parseInt(amountInWei) + parseInt(feeInWei)
                 });
 
                 statusText.textContent = `Transaction successful: ${receipt.transactionHash}`;
@@ -110,4 +111,3 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Please install MetaMask to use this feature.');
     }
 });
-
